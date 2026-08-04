@@ -1,0 +1,52 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate.ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+  data.redis:
+    host: ${REDIS_HOST:dev_redis}
+    port: ${REDIS_PORT:6379}
+whatsapp:
+  api:
+    flow-id: ${WHATSAPP_FLOW_ID}
+    base-url: ${WHATSAPP_BASE_URL:https://graph.facebook.com/v25.0}
+    phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID}
+    access-token: ${WHATSAPP_ACCESS_TOKEN}
+    app-secret: ${WHATSAPP_APP_SECRET}
+  webhook.verify-token: ${WHATSAPP_WEBHOOK_VERIFY_TOKEN}
+  flow:
+    private-key-path: ${WHATSAPP_PRIVATE_KEY_PATH:keys/private_key.pem}
+    private-key-passphrase: ${WHATSAPP_PRIVATE_KEY_PASSPHRASE}
+admin:
+  email.transport: ${ADMIN_EMAIL_TRANSPORT:smtp}
+  company-name: ${ADMIN_COMPANY_NAME:Javins}
+  frontend-url: ${ADMIN_FRONTEND_URL}
+  support-email: ${ADMIN_SUPPORT_EMAIL}
+  security:
+    jwt-secret: ${ADMIN_JWT_SECRET}
+    access-token-minutes: ${ADMIN_ACCESS_TOKEN_MINUTES:15}
+    refresh-token-days: ${ADMIN_REFRESH_TOKEN_DAYS:30}
+    otp-minutes: ${ADMIN_OTP_MINUTES:10}
+    reset-token-minutes: ${ADMIN_RESET_TOKEN_MINUTES:10}
+    max-login-attempts: ${ADMIN_MAX_LOGIN_ATTEMPTS:5}
+    lockout-minutes: ${ADMIN_LOCKOUT_MINUTES:15}
+    frontend-url: ${ADMIN_FRONTEND_URL}
+    invite-hours: ${ADMIN_INVITE_HOURS:48}
+    auth-rate-limit-per-minute: ${ADMIN_AUTH_RATE_LIMIT:20}
+  bootstrap:
+    enabled: ${ADMIN_BOOTSTRAP_ENABLED:false}
+    full-name: ${ADMIN_BOOTSTRAP_FULL_NAME:}
+    username: ${ADMIN_BOOTSTRAP_USERNAME:}
+    email: ${ADMIN_BOOTSTRAP_EMAIL:}
+    password: ${ADMIN_BOOTSTRAP_PASSWORD:}
