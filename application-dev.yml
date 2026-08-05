@@ -1,22 +1,35 @@
 server:
   port: ${SERVER_PORT:8080}
+
 spring:
   datasource:
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: ${FLYWAY_ENABLED:false}
+    baseline-on-migrate: true
+    baseline-version: 0
   jpa:
-    hibernate.ddl-auto: ${JPA_DDL_AUTO:update}
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:create}
     show-sql: ${JPA_SHOW_SQL:false}
   mail:
     host: ${SMTP_HOST}
     port: ${SMTP_PORT:587}
     username: ${SMTP_USERNAME}
     password: ${SMTP_PASSWORD}
-  data.redis:
-    host: ${REDIS_HOST:dev_redis}
-    port: ${REDIS_PORT:6379}
+    test-connection: false
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:true}
+      mail.smtp.starttls.enable: ${SMTP_STARTTLS:true}
+      mail.smtp.starttls.required: ${SMTP_STARTTLS_REQUIRED:true}
+  data:
+    redis:
+      host: ${REDIS_HOST:dev_redis}
+      port: ${REDIS_PORT:6379}
+
 whatsapp:
   api:
     flow-id: ${WHATSAPP_FLOW_ID}
@@ -24,12 +37,15 @@ whatsapp:
     phone-number-id: ${WHATSAPP_PHONE_NUMBER_ID}
     access-token: ${WHATSAPP_ACCESS_TOKEN}
     app-secret: ${WHATSAPP_APP_SECRET}
-  webhook.verify-token: ${WHATSAPP_WEBHOOK_VERIFY_TOKEN}
+  webhook:
+    verify-token: ${WHATSAPP_WEBHOOK_VERIFY_TOKEN}
   flow:
     private-key-path: ${WHATSAPP_PRIVATE_KEY_PATH:keys/private_key.pem}
     private-key-passphrase: ${WHATSAPP_PRIVATE_KEY_PASSPHRASE}
+
 admin:
-  email.transport: ${ADMIN_EMAIL_TRANSPORT:smtp}
+  email:
+    transport: ${ADMIN_EMAIL_TRANSPORT:smtp}
   company-name: ${ADMIN_COMPANY_NAME:Javins}
   frontend-url: ${ADMIN_FRONTEND_URL}
   support-email: ${ADMIN_SUPPORT_EMAIL}
@@ -44,6 +60,12 @@ admin:
     frontend-url: ${ADMIN_FRONTEND_URL}
     invite-hours: ${ADMIN_INVITE_HOURS:48}
     auth-rate-limit-per-minute: ${ADMIN_AUTH_RATE_LIMIT:20}
+    allowed-origins: ${ADMIN_ALLOWED_ORIGINS:https://dev.askjavins.ai}
+    refresh-cookie:
+      name: ${ADMIN_REFRESH_COOKIE_NAME:javins_admin_refresh}
+      path: ${ADMIN_REFRESH_COOKIE_PATH:/admin/auth}
+      same-site: ${ADMIN_REFRESH_COOKIE_SAME_SITE:Lax}
+      domain: ${ADMIN_REFRESH_COOKIE_DOMAIN:}
   bootstrap:
     enabled: ${ADMIN_BOOTSTRAP_ENABLED:false}
     full-name: ${ADMIN_BOOTSTRAP_FULL_NAME:}
